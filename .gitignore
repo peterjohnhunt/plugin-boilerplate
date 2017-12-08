@@ -1,0 +1,6 @@
+.DS_Store
+*.map
+.codekit-cache
+.htaccess
+.sass-cache/
+config.codekit*
