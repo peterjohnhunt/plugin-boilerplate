@@ -43,3 +43,9 @@ Utilizing the prefixed helper functions for template parts and locating template
 
 ## Assets
 Assets contain all the admin and public styles, scripts, imagery, and fonts as needed. Plugin manager files will enqueue these as needed. Prefixed helper functions can be used to link to file URL or DIR paths.
+
+## Todo:
+ - Add standard settings admin class
+ - Add example setup of post type with custom page for archives with vanity URL structure
+ - Add public manager function examples for template overrides
+ - Add public manager function examples for styles / scripts
