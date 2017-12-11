@@ -9,6 +9,7 @@
 //░░░░░░░░░░░░░░░░░░░░░░░░
 
 namespace PLUGIN_NAMESPACE\Includes;
+	  use PLUGIN_NAMESPACE\Includes\Admin;
 
 Class Admin_Manager{
 
