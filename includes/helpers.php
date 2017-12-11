@@ -176,5 +176,5 @@ function PLUGIN_PREFIX_get_theme_template_paths() {
 // ∟GetTemplateDirName
 //∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 function PLUGIN_PREFIX_get_theme_template_dir_name() {
-	return trailingslashit( apply_filters( 'PLUGIN_PREFIX_templates_dir', 'bible_search_tool/templates' ) );
+	return trailingslashit( apply_filters( 'PLUGIN_PREFIX_templates_dir', 'PLUGIN_FUNCTION/templates' ) );
 }

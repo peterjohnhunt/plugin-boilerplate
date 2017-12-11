@@ -78,7 +78,7 @@ final class PLUGIN_NAMESPACE {
 	// ∟Clone
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function __clone(){
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'bible-search-tool' ), '4.7.3' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'PLUGIN_SLUG' ), '1.0.0' );
 	}
 
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
@@ -86,7 +86,7 @@ final class PLUGIN_NAMESPACE {
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function __wakeup(){
 		// Unserializing instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'bible-search-tool' ), '4.7.3' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'PLUGIN_SLUG' ), '1.0.0' );
 	}
 
 	//≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
