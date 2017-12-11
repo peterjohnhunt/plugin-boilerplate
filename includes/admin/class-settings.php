@@ -8,7 +8,7 @@
 //
 //░░░░░░░░░░░░░░░░░░░░░░░░
 
-namespace PLUGIN_NAMESPACE\Includes;
+namespace PLUGIN_NAMESPACE\Includes\Admin;
 
 Class Settings{
 
@@ -25,7 +25,7 @@ Class Settings{
 	//≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	// _Constructor
 	//≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-	public function __construct($args){
+	public function __construct($args="PLUGIN_LABEL"){
 		$this->version = PLUGIN_GLOBAL_VERSION;
 		$this->prefix  = PLUGIN_GLOBAL_PREFIX;
 
