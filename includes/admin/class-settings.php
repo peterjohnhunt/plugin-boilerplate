@@ -5,6 +5,15 @@
 //     DIRECTORY
 //
 //     _Constructor
+//     _Page
+//       ∟AddPage
+//       ∟RenderPage
+//     _Styles
+//     _Scripts
+//     _Settings
+//       ∟RegisterSettings
+//       ∟RenderSettings
+//       ∟SaveSetting
 //
 //░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -25,14 +34,41 @@ Class Settings{
 	//≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	// _Constructor
 	//≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-	public function __construct($args="PLUGIN_LABEL"){
+	public function __construct($args="Plugin Settings"){
 		$this->version = PLUGIN_GLOBAL_VERSION;
 		$this->prefix  = PLUGIN_GLOBAL_PREFIX;
 
-		$this->label  = is_array($args) ? $args['label']  : $args;
-		$this->slug   = is_array($args) ? $args['slug']   : sanitize_title($args);
-		$this->fields = is_array($args) ? $args['fields'] : array();
+		if (!is_array($args)) {
+			$args = array('label' => $args);
+		}
+
+		$args = wp_parse_args( $args, array(
+			'slug'   => sanitize_title($args['label']),
+			'fields' => array(),
+		) );
+
+		$this->label  = $args['label'];
+		$this->slug   = $args['slug'];
+		$this->fields = array();
+
+		if ( $args['fields'] ) {
+			foreach ($args['fields'] as $field_label => $field_args) {
+
+				if ( !is_array($field_args) ) {
+					$field_label = $field_args;
+					$field_args  = array();
+				}
+
+				$this->fields[] = wp_parse_args( $field_args, array(
+					'option' => $this->slug,
+					'label'  => $field_label,
+					'slug'   => sanitize_title($field_label),
+					'type'   => sanitize_title($field_label),
+				) );
+			}
+		}
 	}
+
 
 	//≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	// _Page
@@ -54,7 +90,10 @@ Class Settings{
 	// ∟RenderPage
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function render_page() {
-		PLUGIN_PREFIX_get_template_part("admin/settings/{$this->slug}/page");
+		PLUGIN_PREFIX_locate_template(array(
+			"admin/settings/{$this->slug}/settings.php",
+			"admin/settings/settings.php"
+		), true);
 	}
 
 
@@ -94,7 +133,7 @@ Class Settings{
 	// _Settings
 	//≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
-	// ∟Register
+	// ∟RegisterSettings
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function register_settings() {
 		register_setting( $this->slug, $this->slug, array($this, 'save_fields') );
@@ -108,48 +147,39 @@ Class Settings{
 
 		if ( !empty($this->fields) ) {
 			foreach ($this->fields as $field) {
-				$label = is_array($field) ? $field['label'] : $field;
-				$slug  = is_array($field) ? $field['slug']  : sanitize_title($field);
-				$type  = is_array($field) ? $field['type']  : false;
-
 				add_settings_field(
-					$slug,
-					$label,
+					$field['slug'],
+					$field['label'],
 					array($this, 'render_field'),
-					$this->slug,
-					"{$this->slug}_section",
-					array(
-						'option' => $this->slug,
-						'label'  => $label,
-						'slug'   => $slug,
-						'type'   => $type
-					)
+					$field['option'],
+					"{$field['option']}_section",
+					$field
 				);
 			}
 		}
 	}
 
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
-	// ∟Render
+	// ∟RenderSettings
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function render_field($args){
 		extract($args);
-		$file = $type ? $type : $slug;
-		include(PLUGIN_PREFIX_locate_template("admin/settings/{$option}/fields/{$file}.php"));
+		include(PLUGIN_PREFIX_locate_template(array(
+			"admin/settings/{$option}/fields/{$type}.php",
+			"admin/settings/fields/{$type}.php"
+		)));
 	}
 
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
-	// ∟Save
+	// ∟SaveSettings
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function save_fields($input){
 		$save = array();
 
 		if ( !empty($this->fields) ) {
 			foreach ($this->fields as $field) {
-				$slug = is_array($field) ? $field['slug']  : sanitize_title($field);
-
-				if (isset($input[$slug])) {
-					$save[$slug] = $input[$slug];
+				if (isset($input[$field['slug']])) {
+					$save[$field['slug']] = $input[$field['slug']];
 				}
 			}
 		}

@@ -23,12 +23,6 @@ Class Admin_Manager{
 	public function __construct(){
 		$this->version = PLUGIN_GLOBAL_VERSION;
 
-		$this->settings = new Admin\Settings(array(
-			'label'  => 'PLUGIN_LABEL',
-			'slug'   => 'PLUGIN_SLUG',
-			'fields' => array(
-				'Text'
-			)
-		));
+		$this->settings = new Admin\Settings();
 	}
 }
