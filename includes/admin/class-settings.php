@@ -30,7 +30,7 @@ Class Settings{
 		$this->prefix  = PLUGIN_GLOBAL_PREFIX;
 
 		$this->label  = is_array($args) ? $args['label']  : $args;
-		$this->slug   = is_array($args) ? $args['slug']   : sanatize_title($args);
+		$this->slug   = is_array($args) ? $args['slug']   : sanitize_title($args);
 		$this->fields = is_array($args) ? $args['fields'] : array();
 	}
 
@@ -109,7 +109,7 @@ Class Settings{
 		if ( !empty($this->fields) ) {
 			foreach ($this->fields as $field) {
 				$label = is_array($field) ? $field['label'] : $field;
-				$slug  = is_array($field) ? $field['slug']  : sanatize_title($field);
+				$slug  = is_array($field) ? $field['slug']  : sanitize_title($field);
 				add_settings_field(
 					$slug,
 					$label,
