@@ -54,7 +54,7 @@ Class Settings{
 	// ∟RenderPage
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function render_page() {
-		PLUGIN_PREFIX_get_template_part("settings/{$this->slug}/page");
+		PLUGIN_PREFIX_get_template_part("admin/settings/{$this->slug}/page");
 	}
 
 
@@ -129,7 +129,7 @@ Class Settings{
 	// ∟Render
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function render_field($args){
-		PLUGIN_PREFIX_get_template_part("settings/{$this->slug}/fields/{$args['slug']}");
+		PLUGIN_PREFIX_get_template_part("admin/settings/{$this->slug}/fields/{$args['slug']}");
 	}
 
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
