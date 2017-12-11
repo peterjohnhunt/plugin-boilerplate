@@ -110,6 +110,8 @@ Class Settings{
 			foreach ($this->fields as $field) {
 				$label = is_array($field) ? $field['label'] : $field;
 				$slug  = is_array($field) ? $field['slug']  : sanitize_title($field);
+				$type  = is_array($field) ? $field['type']  : false;
+
 				add_settings_field(
 					$slug,
 					$label,
@@ -118,7 +120,8 @@ Class Settings{
 					"{$this->slug}_section",
 					array(
 						'label' => $label,
-						'slug' => $slug
+						'slug'  => $slug,
+						'type'  => $type
 					)
 				);
 			}
@@ -129,18 +132,26 @@ Class Settings{
 	// ∟Render
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function render_field($args){
-		PLUGIN_PREFIX_get_template_part("admin/settings/{$this->slug}/fields/{$args['slug']}");
+		$type = $args['type'] ? $args['type'] : $args['slug'];
+		PLUGIN_PREFIX_get_template_part("admin/settings/{$this->slug}/fields/{$type}");
 	}
 
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	// ∟Save
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function save_fields($input){
+		$save = array();
 
-		if ( isset($input['import_field']) && ($attachement_id = $input['import_field']) ) {
-			$this->importer->new_import( $attachement_id );
+		if ( !empty($this->fields) ) {
+			foreach ($this->fields as $field) {
+				$slug = is_array($field) ? $field['slug']  : sanitize_title($field);
+
+				if (isset($input[$slug])) {
+					$save[$slug] = $input[$slug];
+				}
+			}
 		}
 
-		return array();
+		return $save;
 	}
 }
