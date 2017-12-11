@@ -1,7 +1,5 @@
 <?php
-	$section = 'PLUGIN_SLUG';
-	$values  = get_option($section);
-	$field   = 'field';
-	$value   = isset($values[$field]) ? $values[$field] : '';
+	$values = get_option($option);
+	$value  = isset($values[$slug]) ? $values[$slug] : '';
 ?>
-<input type="text" name="<?php echo $section; ?>[<?php echo $field; ?>]" value="<?php echo $value; ?>">
+<input type="text" name="<?php echo $option; ?>[<?php echo $slug; ?>]" value="<?php echo $value; ?>">

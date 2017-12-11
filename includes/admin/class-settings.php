@@ -119,9 +119,10 @@ Class Settings{
 					$this->slug,
 					"{$this->slug}_section",
 					array(
-						'label' => $label,
-						'slug'  => $slug,
-						'type'  => $type
+						'option' => $this->slug,
+						'label'  => $label,
+						'slug'   => $slug,
+						'type'   => $type
 					)
 				);
 			}
@@ -132,8 +133,9 @@ Class Settings{
 	// ∟Render
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	public function render_field($args){
-		$type = $args['type'] ? $args['type'] : $args['slug'];
-		PLUGIN_PREFIX_get_template_part("admin/settings/{$this->slug}/fields/{$type}");
+		extract($args);
+		$file = $type ? $type : $slug;
+		PLUGIN_PREFIX_locate_template("admin/settings/{$option}/fields/{$file}.php");
 	}
 
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
