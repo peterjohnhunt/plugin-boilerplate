@@ -135,7 +135,7 @@ Class Settings{
 	public function render_field($args){
 		extract($args);
 		$file = $type ? $type : $slug;
-		PLUGIN_PREFIX_locate_template("admin/settings/{$option}/fields/{$file}.php");
+		include(PLUGIN_PREFIX_locate_template("admin/settings/{$option}/fields/{$file}.php"));
 	}
 
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴

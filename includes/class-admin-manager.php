@@ -27,7 +27,7 @@ Class Admin_Manager{
 			'label'  => 'PLUGIN_LABEL',
 			'slug'   => 'PLUGIN_SLUG',
 			'fields' => array(
-				'Field'
+				'Text'
 			)
 		));
 	}
