@@ -14,7 +14,7 @@
 //░░░░░░░░░░░░░░░░░░░░░░░░
 
 
-namespace Bible_Search_Tool\Includes;
+namespace PLUGIN_NAMESPACE\Includes;
 
 class Action_Loader {
 
