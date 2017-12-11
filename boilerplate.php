@@ -98,7 +98,12 @@ final class PLUGIN_NAMESPACE {
 	private function setup_constants(){
 		// Plugin version.
 		if (! defined( 'PLUGIN_GLOBAL_VERSION' )) {
-			define( 'PLUGIN_GLOBAL_VERSION', '1.2.3' );
+			define( 'PLUGIN_GLOBAL_VERSION', '1.0.0' );
+		}
+
+		// Plugin version.
+		if (! defined( 'PLUGIN_GLOBAL_SLUG' )) {
+			define( 'PLUGIN_GLOBAL_PREFIX', 'PLUGIN_PREFIX' );
 		}
 
 		// Plugin Folder Path.
@@ -121,7 +126,7 @@ final class PLUGIN_NAMESPACE {
 	// ∟Dependancies
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	private function load_dependancies(){
-		require_once PLUGIN_GLOBAL_PLUGIN_DIR . 'library/helpers.php';
+		require_once PLUGIN_GLOBAL_PLUGIN_DIR . 'includes/helpers.php';
 		require_once PLUGIN_GLOBAL_PLUGIN_DIR . 'library/autoloader.php';
 	}
 
@@ -140,6 +145,10 @@ final class PLUGIN_NAMESPACE {
 	// ∟Admin
 	//∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴∵∴
 	private function admin_hooks(){
+		$this->loader->add_action( 'admin_menu', $this->admin->settings, 'add_page' );
+		$this->loader->add_action( 'admin_init', $this->admin->settings, 'register_settings' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin->settings, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->admin->settings, 'enqueue_scripts' );
 		// $this->loader->add_action( 'wp_action', $this->admin, 'class_function' );
 		// $this->loader->add_filter( 'wp_action', $this->admin, 'class_function' );
 	}
